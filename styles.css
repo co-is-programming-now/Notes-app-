@@ -57,6 +57,7 @@ body {
 }
 
 hr{
+    width: 100%;
     color: rgb(139, 136, 136);
     opacity: 0.3;
 }
@@ -67,7 +68,7 @@ hr{
     display: grid;
     grid-template-columns: repeat(auto-fill, 200px);
     padding: 24px;
-    gap: 24px
+    gap: 24px;
 }
 
 .note{
