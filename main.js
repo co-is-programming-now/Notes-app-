@@ -1,25 +1,28 @@
 const addNoteButton = document.getElementById("add-note");
 const notesSection = document.getElementById("notes-section");
 const notesFromDom = document.querySelectorAll(".note");
-
+let notesFromLocal = [];
+let notesToLocal = [];
 //get notes from local storage
 function getNotes() {
   return JSON.parse(localStorage.getItem("notes")) || [];
 }
-let notesFromLocal = [];
+
 notesFromLocal.push(getNotes());
 
-notesFromLocal.forEach((note) => {
-  
-});
+notesFromLocal.forEach((note) => {});
 
-let notes = [];
+notesToLocal.forEach(note => {
+  note.id = Math.random().toString(36).substr(2, 18);
+  note.content = content
+})
+
 function saveNotes() {
-  localStorage.setItem("notes", JSON.stringify(notes));
+  localStorage.setItem("notes", JSON.stringify(notesToLocal));
 }
 
 class Note {
-  constructor(id, content){
+  constructor(id, content) {
     this.id = id;
     this.content = content;
   }
@@ -32,37 +35,58 @@ class Note {
   }
 }
 
+addNoteButton.addEventListener("click", () => {
+  const newNote = new Note(2, "algo");
 
-//suuestamente esto guardaria las notas cuando refresque la pagina pero es un engaño
+  newNote.createNoteElement();
+
+  notesToLocal.push(newNote);
+  saveNotes();
+});
 
 
-// get from DOM
-// const noteAppContainer = document.getElementById("notes-app-container");
-// const notesSection = document.getElementById("notes-section");
-// const addNoteButton = document.getElementById("add-note");
-// const notesFromDom = document.querySelectorAll(".note");
 
-// function get actual notes
-// function getNotes() {
-//   return JSON.parse(localStorage.getItem("notes")) || [];
-// }
-// let notesFromLocal = [];
-// notesFromLocal.push(getNotes());
 
-// save notes on local storage
-// let notes = [];
-// function saveNotes() {
-//   localStorage.setItem("notes", JSON.stringify(notes));
-// }
 
-// function createNote() {
-//   const newNote = document.createElement("textarea");
-//   newNote.classList.add("note");
-//   newNote.placeholder = "click on me to write";
-//   newNote.value = "";
-//   newNote.id = Math.random().toString(36).substr(2, 18);
-//   notesSection.insertBefore(newNote, addNoteButton);
-//   console.log("work");
-//   notes.push(newNote);
-// }
-// Math.random().toString(36).substr(2, 18);
+
+
+
+/* 
+//what i was designed :(
+//get from DOM
+const noteAppContainer = document.getElementById("notes-app-container");
+const notesSection = document.getElementById("notes-section");
+const addNoteButton = document.getElementById("add-note");
+const notesFromDom = document.querySelectorAll(".note");
+
+//function get actual notes
+function getNotes() {
+  return JSON.parse(localStorage.getItem("ExistingNotes") || "[]");
+}
+
+//this have to save notes
+function saveNotes(notes) {
+  localStorage.setItem("ExistingNotes", JSON.stringify(notes));
+}
+
+function createNote() {
+  const newNote = document.createElement("textarea");
+  newNote.classList.add("note");
+
+  newNote.placeholder = "click on me to write";
+
+  notesSection.insertBefore(newNote, addNoteButton);
+
+  //edit note
+  newNote.addEventListener("change", () => {
+    //function that have to update the note
+    console.log("the note has changed");
+  });
+
+  newNote.addEventListener("dblclick", () => {
+    newNote.remove();
+    console.log("the note has deleted");
+  });
+}
+
+addNoteButton.onclick = createNote; */
