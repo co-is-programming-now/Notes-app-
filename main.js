@@ -4,7 +4,7 @@ const notesSection = document.getElementById("notes-section");
 const addNoteButton = document.getElementById("add-note");
 const notesFromDom = document.querySelectorAll(".note");
 
-let notesFromLocal = [];
+
 let notes = [];
 
 function getNotes() {
@@ -12,6 +12,7 @@ function getNotes() {
 }
   getNotes().forEach( (note) => {
       const getBackNote = createNote(note.id, note.valueNote)
+      getBackNote
     })
 
 
@@ -34,7 +35,6 @@ function createNote(id, valueNote) {
 notesSection.insertBefore(newNote, addNoteButton);
 
   newNote.addEventListener("change", () => {
-    // hacer cuando mi cerebro vuelva a la vida ._.
     updateNote(id, newNote.value)
     console.log("the note has changed");
   });
