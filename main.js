@@ -3,8 +3,6 @@ const noteAppContainer = document.getElementById("notes-app-container");
 const notesSection = document.getElementById("notes-section");
 const addNoteButton = document.getElementById("add-note");
 
-let notes = [];
-
 function getNotes() {
   return JSON.parse(localStorage.getItem("notes")) || [];
 }
@@ -57,7 +55,6 @@ function addNote() {
   insertElement;
 
   existingNotes.push(note);
-  // notes.push(existingNotes)
   saveNotes(existingNotes);
 }
 function updateNote(id, newValueNote) {
