@@ -1,92 +1,81 @@
-const addNoteButton = document.getElementById("add-note");
-const notesSection = document.getElementById("notes-section");
-const notesFromDom = document.querySelectorAll(".note");
-let notesFromLocal = [];
-let notesToLocal = [];
-//get notes from local storage
-function getNotes() {
-  return JSON.parse(localStorage.getItem("notes")) || [];
-}
-
-notesFromLocal.push(getNotes());
-
-notesFromLocal.forEach((note) => {});
-
-notesToLocal.forEach(note => {
-  note.id = Math.random().toString(36).substr(2, 18);
-  note.content = content
-})
-
-function saveNotes() {
-  localStorage.setItem("notes", JSON.stringify(notesToLocal));
-}
-
-class Note {
-  constructor(id, content) {
-    this.id = id;
-    this.content = content;
-  }
-  createNoteElement() {
-    const noteElement = document.createElement("textarea");
-    noteElement.classList.add("note");
-    noteElement.placeholder = "empty note";
-    notesSection.insertBefore(noteElement, addNoteButton);
-    console.log("work");
-  }
-}
-
-addNoteButton.addEventListener("click", () => {
-  const newNote = new Note(2, "algo");
-
-  newNote.createNoteElement();
-
-  notesToLocal.push(newNote);
-  saveNotes();
-});
-
-
-
-
-
-
-
-
-/* 
-//what i was designed :(
-//get from DOM
+// get from DOM
 const noteAppContainer = document.getElementById("notes-app-container");
 const notesSection = document.getElementById("notes-section");
 const addNoteButton = document.getElementById("add-note");
 const notesFromDom = document.querySelectorAll(".note");
 
-//function get actual notes
+let notesFromLocal = [];
+let notes = [];
+
 function getNotes() {
-  return JSON.parse(localStorage.getItem("ExistingNotes") || "[]");
+  return JSON.parse(localStorage.getItem("notes")) || [];
 }
+  getNotes().forEach( (note) => {
+      const getBackNote = createNote(note.id, note.valueNote)
+    })
 
-//this have to save notes
+
+addNoteButton.addEventListener("click",()=> { 
+ addNote()
+  console.log("añado nota")
+})
+
+
 function saveNotes(notes) {
-  localStorage.setItem("ExistingNotes", JSON.stringify(notes));
+  localStorage.setItem("notes", JSON.stringify(notes));
+  console.log("la nota se guardo")
 }
 
-function createNote() {
+function createNote(id, valueNote) {
   const newNote = document.createElement("textarea");
   newNote.classList.add("note");
-
+  newNote.value = valueNote
   newNote.placeholder = "click on me to write";
+notesSection.insertBefore(newNote, addNoteButton);
 
-  notesSection.insertBefore(newNote, addNoteButton);
-
-  //edit note
   newNote.addEventListener("change", () => {
-    //function that have to update the note
+    // hacer cuando mi cerebro vuelva a la vida ._.
+    updateNote(id, newNote.value)
     console.log("the note has changed");
   });
-
+  
   newNote.addEventListener("dblclick", () => {
+
+    prompt("If you wish delete the note write YES").toUpperCase()
+    
+    // deleteNote(id, Element)
+    //hacer bien cuando mi cerebro vuelva a la vida
+    //la nota va a volver porq no la elimine del local storage jeje 
     newNote.remove();
     console.log("the note has deleted");
   });
 }
 
-addNoteButton.onclick = createNote; */
+function addNote(){
+  const existingNotes = getNotes()
+  const note = {
+    id: Math.floor(Math.random() * 99),
+    valueNote: ""
+  }
+  const insertElement = createNote(note.id, note.valueNote)
+  insertElement
+
+  existingNotes.push(note)
+  notes.push(existingNotes)
+  saveNotes(existingNotes)
+}
+function updateNote(id, newValueNote){
+  const notesForUpdate = getNotes();
+ const targetNote = notesForUpdate.filter(note => note.id === id)[0];
+
+ targetNote.valueNote = newValueNote;
+ saveNotes(notesForUpdate)
+  console.log("yo actualizo la nota")
+}
+
+// function deleteNote(id, element){
+//   const notes = getNotes().filter(note => note.id != id)
+//   saveNotes(notes)
+//   //lograr que se borre solito del local storage pero solo el
+// }
+
