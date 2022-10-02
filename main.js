@@ -1,26 +1,29 @@
-// get from DOM
+// get elements from DOM
 const $noteAppContainer = document.querySelector("#notes-app-container");
 const $notesSection = document.querySelector("#notes-section");
 const $addNoteButton = document.getElementById("add-note");
 
-function getNotes() {
+//get notes from local storage
+const getNotes = () => {
   return JSON.parse(localStorage.getItem("notes")) || [];
-}
+};
 
 getNotes().forEach((note) => {
   const getBackNote = createNote(note.id, note.valueNote);
 });
 
+// listen event click on add note button
 $addNoteButton.addEventListener("click", () => {
   addNote();
-  console.log("add note");
+  console.log("note saved");
 });
 
-function saveNotes(notes) {
+//save notes to local storage
+const saveNotes = (notes) => {
   localStorage.setItem("notes", JSON.stringify(notes));
-  console.log("note saved");
-}
+};
 
+//create note function
 function createNote(id, valueNote) {
   const $newNote = document.createElement("textarea");
   $newNote.classList.add("note");
@@ -28,24 +31,46 @@ function createNote(id, valueNote) {
   $newNote.placeholder = "click on me to write";
   $notesSection.insertBefore($newNote, $addNoteButton);
 
+  // listen event change on note and call update note function
   $newNote.addEventListener("change", () => {
     updateNote(id, $newNote.value);
-    console.log("the note has changed");
   });
 
+  // listen event dblclick on note
   $newNote.addEventListener("dblclick", () => {
-    const plisConfirm = confirm("Sure you want to delete you note?");
-    if (plisConfirm) {
-      deleteNote(id, $newNote.element);
-      $newNote.remove();
-      console.log("The note has deleted");
-    } else {
-      console.log("The note has not deleted");
-    }
+    //customize the delete note alert
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      showCancelButton: true,
+      confirmButtonColor: "rgb(46, 46, 46)",
+      cancelButtonColor: "rgb(46, 46, 46)",
+      confirmButtonText: "Delete it!",
+      background: "rgba(103, 103, 103, 0.512)",
+      position: "center",
+      color: "#fff",
+      width: 300,
+    }).then((res) => {
+      if (res.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          width: 200,
+          color: "rgba(0, 0, 0, 0.633)",
+          background: "rgb(230, 230, 230);",
+          showConfirmButton: false,
+          position: "bottom-start",
+          timer: 1500,
+        });
+        //remove the note from local storage and from the screen
+        deleteNote(id, $newNote.element);
+        $newNote.remove();
+      }
+    });
   });
 }
 
-function addNote() {
+//add note
+const addNote = () => {
   const existingNotes = getNotes();
   const note = {
     id: Math.floor(Math.random() * 99),
@@ -54,18 +79,42 @@ function addNote() {
   const insertElement = createNote(note.id, note.valueNote);
   existingNotes.push(note);
   saveNotes(existingNotes);
-}
+};
 
-function updateNote(id, newValueNote) {
-  const notesForUpdate = getNotes();
-  const targetNote = notesForUpdate.filter((note) => note.id === id)[0];
+//update note function
+
+const updateNote = (id, newValueNote) => {
+  const editedNote = getNotes();
+
+  //search for the note that has changed
+  const targetNote = editedNote.filter((note) => note.id === id)[0];
 
   targetNote.valueNote = newValueNote;
-  saveNotes(notesForUpdate);
-}
+  //save updated notes on local storage
+  saveNotes(editedNote);
+  console.log("the note has changed");
 
-function deleteNote(id, element) {
+  //customize the save note alert
+  Swal.fire({
+    title: "Saved!",
+    background: "rgb(230, 230, 230);",
+    color: "rgba(0, 0, 0, 0.633)",
+    showConfirmButton: false,
+    position: "bottom-start",
+    width: 200,
+    timer: 1500,
+  });
+};
+
+//delete note function
+const deleteNote = (id, element) => {
+  //search for the note that has changed
   const notes = getNotes().filter((note) => note.id != id);
+
+  //remove note deleted from local storage
   localStorage.removeItem(element);
+  console.log("The note has deleted");
+
+  //save updated notes on local storage
   saveNotes(notes);
-}
+};
