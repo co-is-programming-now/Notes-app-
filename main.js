@@ -69,7 +69,7 @@ function createNote(id, valueNote) {
   });
 }
 
-//add note
+//add note function
 const addNote = () => {
   const existingNotes = getNotes();
   const note = {
