@@ -33,21 +33,22 @@ html {
 #notes-section {
     display: grid;
     max-height: 90vh;
-    overflow-y: scroll;
     grid-template-columns: repeat(auto-fill, 200px);
     padding: 24px;
     gap: 24px;
     justify-content: center;
 }
 
-#notes-section::-webkit-scrollbar {
+/* NOTES */
+.note::-webkit-scrollbar {
     display: none;
 }
-
-/* NOTES */
 .note {
     position: relative;
-    height: 200px;
+    min-height: 200px;
+    max-height: 200px;
+    max-width:200px;
+    min-width: 200px;
     box-sizing: border-box;
     padding: 16px;
     border: none;

@@ -1,0 +1,1491 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+    "title": "Typewise API",
+    "description": "Typewise server for text completion, autocorrection and emoji searching.",
+    "version": "0"
+    },
+    "servers": [
+    {
+    "url": "/latest"
+    }
+    ],
+    "paths": {
+    "/completion/complete": {
+    "post": {
+    "tags": [
+    "completion"
+    ],
+    "summary": "Complete",
+    "description": "Complete a single sentence with one word",
+    "operationId": "complete_completion_complete_post",
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/CompletionRequest"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "Successful Response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/CompletionReply"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/completion/sentence_complete": {
+    "post": {
+    "tags": [
+    "completion"
+    ],
+    "summary": "Sentence Complete",
+    "description": "Complete a single sentence using common sentences",
+    "operationId": "sentence_complete_completion_sentence_complete_post",
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/SentenceCompletionRequest"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "Successful Response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/CompletionReply"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/correction/final_word": {
+    "post": {
+    "tags": [
+    "correction"
+    ],
+    "summary": "Final Word Correction",
+    "description": "Correct a single word",
+    "operationId": "final_word_correction_correction_final_word_post",
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/FinalWordCorrectionRequest"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "Successful Response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/FinalWordCorrectionReply"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/correction/whole_sentence": {
+    "post": {
+    "tags": [
+    "correction"
+    ],
+    "summary": "Complete Correction",
+    "description": "Correct a complete text",
+    "operationId": "complete_correction_correction_whole_sentence_post",
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/SentenceCorrectionRequest"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "Successful Response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/SentenceCorrectionReply"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/language_detection/detector": {
+    "post": {
+    "tags": [
+    "language_detection"
+    ],
+    "summary": "Detect Language",
+    "description": "Detect the language from a sentence.",
+    "operationId": "detect_language_language_detection_detector_post",
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/LanguageDetectionRequest"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "Successful Response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/LanguageDetectionReply"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/info/": {
+    "get": {
+    "tags": [
+    "info"
+    ],
+    "summary": "Server Info",
+    "description": "Get information about the deployment, prettified",
+    "operationId": "server_info_info__get",
+    "responses": {
+    "200": {
+    "description": "Successful Response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/InfoReply"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/info/company_config": {
+    "get": {
+    "tags": [
+    "info"
+    ],
+    "summary": "Company Config Server Info",
+    "description": "Get the company config json",
+    "operationId": "company_config_server_info_info_company_config_get",
+    "responses": {
+    "200": {
+    "description": "Successful Response",
+    "content": {
+    "application/json": {
+    "schema": {}
+    }
+    }
+    }
+    }
+    }
+    },
+    "/info/correction_config": {
+    "get": {
+    "tags": [
+    "info"
+    ],
+    "summary": "Correction Config Server Info",
+    "description": "Get the autocorrection config",
+    "operationId": "correction_config_server_info_info_correction_config_get",
+    "responses": {
+    "200": {
+    "description": "Successful Response",
+    "content": {
+    "application/json": {
+    "schema": {}
+    }
+    }
+    }
+    }
+    }
+    },
+    "/info/global_library_settings": {
+    "get": {
+    "tags": [
+    "info"
+    ],
+    "summary": "Global Library Settings Server Info",
+    "description": "Get the global library settings config json",
+    "operationId": "global_library_settings_server_info_info_global_library_settings_get",
+    "responses": {
+    "200": {
+    "description": "Successful Response",
+    "content": {
+    "application/json": {
+    "schema": {}
+    }
+    }
+    }
+    }
+    }
+    },
+    "/info/language_modelling_settings": {
+    "get": {
+    "tags": [
+    "info"
+    ],
+    "summary": "Language Modelling Settings Server Info",
+    "description": "Get the global language modelling settings config json",
+    "operationId": "language_modelling_settings_server_info_info_language_modelling_settings_get",
+    "responses": {
+    "200": {
+    "description": "Successful Response",
+    "content": {
+    "application/json": {
+    "schema": {}
+    }
+    }
+    }
+    }
+    }
+    },
+    "/info/model_config": {
+    "post": {
+    "tags": [
+    "info"
+    ],
+    "summary": "Model Config",
+    "description": "Get the config of a model",
+    "operationId": "model_config_info_model_config_post",
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/InfoModelConfigRequest"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "Successful Response",
+    "content": {
+    "application/json": {
+    "schema": {}
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/info/metabase_info": {
+    "get": {
+    "tags": [
+    "info"
+    ],
+    "summary": "Metabase Info",
+    "description": "Get all configs that will be posted to metabase",
+    "operationId": "metabase_info_info_metabase_info_get",
+    "responses": {
+    "200": {
+    "description": "Successful Response",
+    "content": {
+    "application/json": {
+    "schema": {}
+    }
+    }
+    }
+    }
+    }
+    },
+    "/emoji/search": {
+    "post": {
+    "tags": [
+    "emoji"
+    ],
+    "summary": "Emoji Search",
+    "description": "Search for emojis based on keywords",
+    "operationId": "emoji_search_emoji_search_post",
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/EmojiSearchRequest"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "Successful Response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/EmojiSearchReply"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/grammar_correction/whole_text_grammar_correction": {
+    "post": {
+    "tags": [
+    "grammar_correction"
+    ],
+    "summary": "Whole Text Grammar Correction",
+    "description": "Do grammar correction for entire text",
+    "operationId": "whole_text_grammar_correction_grammar_correction_whole_text_grammar_correction_post",
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/GrammarCorrectionRequest"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "Successful Response",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/GrammarCorrectionWholeTextReply"
+    }
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/grammar_correction/compare_grammar_correction": {
+    "post": {
+    "tags": [
+    "grammar_correction"
+    ],
+    "summary": "Compare Grammar Correction",
+    "description": "Do grammar correction for entire text, using all the models we have",
+    "operationId": "compare_grammar_correction_grammar_correction_compare_grammar_correction_post",
+    "requestBody": {
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/GrammarCorrectionComparisonRequest"
+    }
+    }
+    },
+    "required": true
+    },
+    "responses": {
+    "200": {
+    "description": "Successful Response",
+    "content": {
+    "application/json": {
+    "schema": {}
+    }
+    }
+    },
+    "422": {
+    "description": "Validation Error",
+    "content": {
+    "application/json": {
+    "schema": {
+    "$ref": "#/components/schemas/HTTPValidationError"
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "/": {
+    "get": {
+    "summary": "Root",
+    "operationId": "root__get",
+    "responses": {
+    "200": {
+    "description": "Successful Response",
+    "content": {
+    "application/json": {
+    "schema": {}
+    }
+    }
+    }
+    }
+    }
+    },
+    "/metrics": {
+    "get": {
+    "summary": "Metrics",
+    "description": "Endpoint that serves Prometheus metrics.",
+    "operationId": "metrics_metrics_get",
+    "responses": {
+    "200": {
+    "description": "Successful Response",
+    "content": {
+    "application/json": {
+    "schema": {}
+    }
+    }
+    }
+    }
+    }
+    }
+    },
+    "components": {
+    "schemas": {
+    "AllLanguageEnum": {
+    "title": "AllLanguageEnum",
+    "enum": [
+    "en",
+    "de",
+    "fr",
+    "es",
+    "it",
+    "pt"
+    ],
+    "description": "An enumeration."
+    },
+    "AutocorrectionServerInfo": {
+    "title": "AutocorrectionServerInfo",
+    "required": [
+    "ngramVersion",
+    "casingOverwrite",
+    "blocklist"
+    ],
+    "type": "object",
+    "properties": {
+    "ngramVersion": {
+    "title": "Ngramversion",
+    "type": "string"
+    },
+    "casingOverwrite": {
+    "title": "Casingoverwrite",
+    "type": "object",
+    "additionalProperties": {
+    "type": "object",
+    "additionalProperties": {
+    "type": "object",
+    "additionalProperties": {
+    "type": "array",
+    "items": {
+    "type": "string"
+    }
+    }
+    }
+    }
+    },
+    "blocklist": {
+    "title": "Blocklist",
+    "type": "object",
+    "additionalProperties": {
+    "uniqueItems": true,
+    "type": "array",
+    "items": {
+    "type": "string"
+    }
+    }
+    }
+    }
+    },
+    "CompletionReply": {
+    "title": "CompletionReply",
+    "required": [
+    "language",
+    "text",
+    "predictions"
+    ],
+    "type": "object",
+    "properties": {
+    "language": {
+    "allOf": [
+    {
+    "$ref": "#/components/schemas/AllLanguageEnum"
+    }
+    ],
+    "description": "Detected language code."
+    },
+    "text": {
+    "title": "Text",
+    "type": "string",
+    "description": "The original sentence the query was made from."
+    },
+    "predictions": {
+    "title": "Predictions",
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/SingleCompletion"
+    },
+    "description": "Most likely predictions and scores."
+    }
+    }
+    },
+    "CompletionRequest": {
+    "title": "CompletionRequest",
+    "required": [
+    "text"
+    ],
+    "type": "object",
+    "properties": {
+    "languages": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/AllLanguageEnum"
+    },
+    "description": "List of possible language codes.                        The one with the highest probability will be used.",
+    "default": [
+    "en",
+    "de",
+    "fr",
+    "es",
+    "it",
+    "pt"
+    ],
+    "example": [
+    "en",
+    "de",
+    "fr"
+    ]
+    },
+    "text": {
+    "title": "Text",
+    "type": "string",
+    "description": "The input text to be autocompleted. If full next word prediction is required, end the text with a space.",
+    "example": "Please complete this sent"
+    },
+    "correctTypoInPartialWord": {
+    "title": "Correcttypoinpartialword",
+    "type": "boolean",
+    "description": "If true, don't constrain predictions to already typed characters, e.g. 'cahracte' can predict 'character', regardless of the typo.",
+    "default": false
+    },
+    "maxNumberOfPredictions": {
+    "title": "Maxnumberofpredictions",
+    "maximum": 20,
+    "minimum": 1,
+    "type": "integer",
+    "description": "The maximum number of predictions to return. The higher the number, the slower the response time. Maximum 20.",
+    "default": 5
+    }
+    }
+    },
+    "EmojiSearchReply": {
+    "title": "EmojiSearchReply",
+    "required": [
+    "query",
+    "predictions"
+    ],
+    "type": "object",
+    "properties": {
+    "query": {
+    "title": "Query",
+    "type": "string",
+    "description": "The original query term."
+    },
+    "predictions": {
+    "title": "Predictions",
+    "type": "array",
+    "items": {
+    "type": "string"
+    },
+    "description": "A list of predicted emojis."
+    }
+    }
+    },
+    "EmojiSearchRequest": {
+    "title": "EmojiSearchRequest",
+    "required": [
+    "query"
+    ],
+    "type": "object",
+    "properties": {
+    "query": {
+    "title": "Query",
+    "type": "string",
+    "description": "The query term to look up emojis, preferably a single word.",
+    "example": "smile"
+    },
+    "maxNumberOfResults": {
+    "title": "Maxnumberofresults",
+    "minimum": 1,
+    "type": "integer",
+    "description": "The number of emoji results to output.",
+    "default": 5
+    },
+    "language": {
+    "allOf": [
+    {
+    "$ref": "#/components/schemas/AllLanguageEnum"
+    }
+    ],
+    "description": "The language code of the query.",
+    "default": "en"
+    }
+    }
+    },
+    "FinalWordCorrectionReply": {
+    "title": "FinalWordCorrectionReply",
+    "required": [
+    "language",
+    "original_text",
+    "corrected_text",
+    "start_index_relative_to_end",
+    "chars_to_replace",
+    "original_word",
+    "is_in_dictionary",
+    "suggestions",
+    "remark"
+    ],
+    "type": "object",
+    "properties": {
+    "language": {
+    "allOf": [
+    {
+    "$ref": "#/components/schemas/AllLanguageEnum"
+    }
+    ],
+    "description": "Detected language code."
+    },
+    "original_text": {
+    "title": "Original Text",
+    "type": "string",
+    "description": "Input text."
+    },
+    "corrected_text": {
+    "title": "Corrected Text",
+    "type": "string",
+    "description": "Original text with corrected final word."
+    },
+    "start_index_relative_to_end": {
+    "title": "Start Index Relative To End",
+    "type": "integer",
+    "description": "Start index of replacement suggestion from end of input text."
+    },
+    "chars_to_replace": {
+    "title": "Chars To Replace",
+    "type": "integer",
+    "description": "Number of characters from original string to replace."
+    },
+    "original_word": {
+    "title": "Original Word",
+    "type": "string",
+    "description": "The original input word."
+    },
+    "is_in_dictionary": {
+    "title": "Is In Dictionary",
+    "type": "boolean",
+    "description": "Is the word in our vocabulary."
+    },
+    "suggestions": {
+    "title": "Suggestions",
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/SingleTokenSuggestions"
+    },
+    "description": "Ordered list of suggestions."
+    },
+    "remark": {
+    "title": "Remark",
+    "type": "string",
+    "description": "Information about why a correction wasn't carried out."
+    }
+    }
+    },
+    "FinalWordCorrectionRequest": {
+    "title": "FinalWordCorrectionRequest",
+    "required": [
+    "text"
+    ],
+    "type": "object",
+    "properties": {
+    "languages": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/AllLanguageEnum"
+    },
+    "description": "List of possible language codes.                        The one with the highest probability will be used.",
+    "default": [
+    "en",
+    "de",
+    "fr",
+    "es",
+    "it",
+    "pt"
+    ],
+    "example": [
+    "en",
+    "de",
+    "fr"
+    ]
+    },
+    "text": {
+    "title": "Text",
+    "type": "string",
+    "description": "Sentence with a corrupted final word.",
+    "example": "Only the final word will be cahnged "
+    },
+    "keyboard": {
+    "allOf": [
+    {
+    "$ref": "#/components/schemas/Keyboard"
+    }
+    ],
+    "description": "The keyboard layout.",
+    "default": "QWERTY",
+    "example": "QWERTY"
+    }
+    }
+    },
+    "GrammarCorrectionComparisonRequest": {
+    "title": "GrammarCorrectionComparisonRequest",
+    "required": [
+    "text",
+    "min_error_probability"
+    ],
+    "type": "object",
+    "properties": {
+    "languages": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/AllLanguageEnum"
+    },
+    "description": "List of possible language codes.                        The one with the highest probability will be used.",
+    "default": [
+    "en",
+    "de",
+    "fr",
+    "es",
+    "it",
+    "pt"
+    ],
+    "example": [
+    "en",
+    "de",
+    "fr"
+    ]
+    },
+    "text": {
+    "title": "Text",
+    "type": "string",
+    "description": "The sentence to be corrected (in full).",
+    "example": "Tihs snetence has erors in "
+    },
+    "min_error_probability": {
+    "title": "Min Error Probability",
+    "type": "array",
+    "items": {
+    "type": "number"
+    },
+    "description": "The list of minimum error probabilities to be considered.",
+    "example": [
+    -1,
+    0.2
+    ]
+    }
+    }
+    },
+    "GrammarCorrectionRequest": {
+    "title": "GrammarCorrectionRequest",
+    "required": [
+    "text"
+    ],
+    "type": "object",
+    "properties": {
+    "languages": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/AllLanguageEnum"
+    },
+    "description": "List of possible language codes.                        The one with the highest probability will be used.",
+    "default": [
+    "en",
+    "de",
+    "fr",
+    "es",
+    "it",
+    "pt"
+    ],
+    "example": [
+    "en",
+    "de",
+    "fr"
+    ]
+    },
+    "text": {
+    "title": "Text",
+    "type": "string",
+    "description": "The sentence to be corrected (in full).",
+    "example": "Tihs snetence has erors in "
+    }
+    }
+    },
+    "GrammarCorrectionWholeTextReply": {
+    "title": "GrammarCorrectionWholeTextReply",
+    "required": [
+    "language",
+    "matches"
+    ],
+    "type": "object",
+    "properties": {
+    "language": {
+    "allOf": [
+    {
+    "$ref": "#/components/schemas/AllLanguageEnum"
+    }
+    ],
+    "description": "Detected language code."
+    },
+    "matches": {
+    "title": "Matches",
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/GrammarMatch"
+    }
+    },
+    "corrected_text": {
+    "title": "Corrected Text",
+    "type": "string",
+    "default": "The corrected text."
+    }
+    }
+    },
+    "GrammarMatch": {
+    "title": "GrammarMatch",
+    "required": [
+    "message",
+    "shortMessage",
+    "suggestions",
+    "startIndex",
+    "charsToReplace",
+    "ruleDescription",
+    "categoryName",
+    "ruleId"
+    ],
+    "type": "object",
+    "properties": {
+    "message": {
+    "title": "Message",
+    "type": "string"
+    },
+    "shortMessage": {
+    "title": "Shortmessage",
+    "type": "string"
+    },
+    "suggestions": {
+    "title": "Suggestions",
+    "type": "array",
+    "items": {
+    "type": "object"
+    }
+    },
+    "startIndex": {
+    "title": "Startindex",
+    "type": "integer"
+    },
+    "charsToReplace": {
+    "title": "Charstoreplace",
+    "type": "integer"
+    },
+    "ruleDescription": {
+    "title": "Ruledescription",
+    "type": "string"
+    },
+    "categoryName": {
+    "title": "Categoryname",
+    "type": "string"
+    },
+    "ruleId": {
+    "title": "Ruleid",
+    "type": "string"
+    }
+    }
+    },
+    "HTTPValidationError": {
+    "title": "HTTPValidationError",
+    "type": "object",
+    "properties": {
+    "detail": {
+    "title": "Detail",
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/ValidationError"
+    }
+    }
+    }
+    },
+    "InfoModelConfigRequest": {
+    "title": "InfoModelConfigRequest",
+    "required": [
+    "model_name"
+    ],
+    "type": "object",
+    "properties": {
+    "model_name": {
+    "title": "Model Name",
+    "type": "string",
+    "description": "The name of the model you want to get the config of"
+    }
+    }
+    },
+    "InfoReply": {
+    "title": "InfoReply",
+    "required": [
+    "company",
+    "dockerContainerTag",
+    "languages",
+    "grammarCorrection",
+    "wordlists",
+    "languageModels",
+    "autocorrection"
+    ],
+    "type": "object",
+    "properties": {
+    "company": {
+    "title": "Company",
+    "type": "string"
+    },
+    "dockerContainerTag": {
+    "title": "Dockercontainertag",
+    "type": "string"
+    },
+    "languages": {
+    "$ref": "#/components/schemas/LanguagesServerInfo"
+    },
+    "grammarCorrection": {
+    "title": "Grammarcorrection",
+    "type": "object"
+    },
+    "wordlists": {
+    "title": "Wordlists",
+    "type": "object",
+    "additionalProperties": {
+    "type": "string"
+    }
+    },
+    "languageModels": {
+    "title": "Languagemodels",
+    "type": "object",
+    "additionalProperties": {
+    "$ref": "#/components/schemas/LanguageModelsServerInfo"
+    }
+    },
+    "autocorrection": {
+    "$ref": "#/components/schemas/AutocorrectionServerInfo"
+    }
+    }
+    },
+    "Keyboard": {
+    "title": "Keyboard",
+    "enum": [
+    "QWERTY",
+    "QWERTZ",
+    "AZERTY"
+    ],
+    "type": "string",
+    "description": "An enumeration."
+    },
+    "LanguageDetectionReply": {
+    "title": "LanguageDetectionReply",
+    "required": [
+    "results"
+    ],
+    "type": "object",
+    "properties": {
+    "results": {
+    "title": "Results",
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/SingleLanguagePrediction"
+    },
+    "description": "Objects containing languages and predicted scores."
+    }
+    }
+    },
+    "LanguageDetectionRequest": {
+    "title": "LanguageDetectionRequest",
+    "required": [
+    "text"
+    ],
+    "type": "object",
+    "properties": {
+    "languages": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/AllLanguageEnum"
+    },
+    "description": "List of possible language codes.                        The one with the highest probability will be used.",
+    "default": [
+    "en",
+    "de",
+    "fr",
+    "es",
+    "it",
+    "pt"
+    ],
+    "example": [
+    "en",
+    "de",
+    "fr"
+    ]
+    },
+    "text": {
+    "title": "Text",
+    "type": "string",
+    "description": "The sentence to detect the language",
+    "example": "This is a sentence in English."
+    },
+    "normalize_score": {
+    "title": "Normalize Score",
+    "type": "boolean",
+    "description": "If true, normalize all language scores.",
+    "default": true
+    }
+    }
+    },
+    "LanguageModelsServerInfo": {
+    "title": "LanguageModelsServerInfo",
+    "required": [
+    "combinationModelName",
+    "combinedModelNames",
+    "inferenceTechnique"
+    ],
+    "type": "object",
+    "properties": {
+    "combinationModelName": {
+    "title": "Combinationmodelname",
+    "type": "string"
+    },
+    "combinedModelNames": {
+    "title": "Combinedmodelnames",
+    "type": "array",
+    "items": {
+    "type": "string"
+    }
+    },
+    "inferenceTechnique": {
+    "title": "Inferencetechnique",
+    "type": "string"
+    }
+    }
+    },
+    "LanguagesServerInfo": {
+    "title": "LanguagesServerInfo",
+    "required": [
+    "standardLanguages",
+    "toBeRecognizedOnlyLanguages"
+    ],
+    "type": "object",
+    "properties": {
+    "standardLanguages": {
+    "title": "Standardlanguages",
+    "type": "array",
+    "items": {
+    "type": "string"
+    }
+    },
+    "toBeRecognizedOnlyLanguages": {
+    "title": "Toberecognizedonlylanguages",
+    "type": "array",
+    "items": {
+    "type": "string"
+    }
+    }
+    }
+    },
+    "SentenceCompletionRequest": {
+    "title": "SentenceCompletionRequest",
+    "required": [
+    "text"
+    ],
+    "type": "object",
+    "properties": {
+    "languages": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/AllLanguageEnum"
+    },
+    "description": "List of possible language codes.                        The one with the highest probability will be used.",
+    "default": [
+    "en",
+    "de",
+    "fr",
+    "es",
+    "it",
+    "pt"
+    ],
+    "example": [
+    "en",
+    "de",
+    "fr"
+    ]
+    },
+    "text": {
+    "title": "Text",
+    "type": "string",
+    "description": "The input text to be autocompleted.",
+    "example": "Kind r"
+    },
+    "alpha": {
+    "title": "Alpha",
+    "type": "number",
+    "description": "How much to prefer longer predictions over shorter ones. The higher the alpha the longer the predictions. The original probability is multiplied by the remaining number of chars to the power of alpha.",
+    "default": 1
+    },
+    "maxNumberOfPredictions": {
+    "title": "Maxnumberofpredictions",
+    "minimum": 1,
+    "type": "integer",
+    "description": "The maximum number of predictions to return.",
+    "default": 1
+    }
+    }
+    },
+    "SentenceCorrectionReply": {
+    "title": "SentenceCorrectionReply",
+    "required": [
+    "language",
+    "original_text",
+    "corrected_text",
+    "tokens",
+    "remark"
+    ],
+    "type": "object",
+    "properties": {
+    "language": {
+    "allOf": [
+    {
+    "$ref": "#/components/schemas/AllLanguageEnum"
+    }
+    ],
+    "description": "Detected language code."
+    },
+    "original_text": {
+    "title": "Original Text",
+    "type": "string",
+    "description": "Input text."
+    },
+    "corrected_text": {
+    "title": "Corrected Text",
+    "type": "string",
+    "description": "Complete corrected sentence."
+    },
+    "tokens": {
+    "title": "Tokens",
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/SingleTokenCorrection"
+    }
+    },
+    "remark": {
+    "title": "Remark",
+    "type": "string"
+    }
+    }
+    },
+    "SentenceCorrectionRequest": {
+    "title": "SentenceCorrectionRequest",
+    "required": [
+    "text"
+    ],
+    "type": "object",
+    "properties": {
+    "languages": {
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/AllLanguageEnum"
+    },
+    "description": "List of possible language codes.                        The one with the highest probability will be used.",
+    "default": [
+    "en",
+    "de",
+    "fr",
+    "es",
+    "it",
+    "pt"
+    ],
+    "example": [
+    "en",
+    "de",
+    "fr"
+    ]
+    },
+    "text": {
+    "title": "Text",
+    "type": "string",
+    "description": "The sentence to be corrected (in full).",
+    "example": "Tihs snetence has erors in "
+    },
+    "keyboard": {
+    "allOf": [
+    {
+    "$ref": "#/components/schemas/Keyboard"
+    }
+    ],
+    "description": "The keyboard layout.",
+    "default": "QWERTY",
+    "example": "QWERTY"
+    },
+    "remove_low_prob_tokens": {
+    "title": "Remove Low Prob Tokens",
+    "type": "boolean",
+    "description": "If true, if the top suggestion is the original word and                         is in the dictionary, don't show any suggestions for                         that word.",
+    "default": false
+    }
+    }
+    },
+    "SingleCompletion": {
+    "title": "SingleCompletion",
+    "required": [
+    "score",
+    "completionStartingIndex",
+    "source",
+    "model_unique_identifier"
+    ],
+    "type": "object",
+    "properties": {
+    "text": {
+    "title": "Text",
+    "type": "string",
+    "description": "Predicted word."
+    },
+    "score": {
+    "title": "Score",
+    "type": "number",
+    "description": "For each candidate completion, the list of the scores returned by the inference. How the score is computed depends on the inference technique of the model."
+    },
+    "completionStartingIndex": {
+    "title": "Completionstartingindex",
+    "type": "integer",
+    "description": "Index (relative to the end) at which the completion starts. If input is 'this is a compl' and the predicted word is 'completion', then the index will be -5."
+    },
+    "source": {
+    "title": "Source",
+    "type": "string",
+    "description": "Short description of the inference that produced the prediction, particularly useful for combination models"
+    },
+    "model_unique_identifier": {
+    "title": "Model Unique Identifier",
+    "type": "string",
+    "description": "Typically, the path of the model that produced the prediction"
+    }
+    }
+    },
+    "SingleLanguagePrediction": {
+    "title": "SingleLanguagePrediction",
+    "required": [
+    "language_code",
+    "score"
+    ],
+    "type": "object",
+    "properties": {
+    "language_code": {
+    "title": "Language Code",
+    "type": "string",
+    "description": "Predicted language code."
+    },
+    "score": {
+    "title": "Score",
+    "type": "number",
+    "description": "The score corresponding to the language."
+    }
+    }
+    },
+    "SingleTokenCorrection": {
+    "title": "SingleTokenCorrection",
+    "required": [
+    "start_index",
+    "chars_to_replace",
+    "original_word",
+    "is_in_dictionary",
+    "suggestions"
+    ],
+    "type": "object",
+    "properties": {
+    "start_index": {
+    "title": "Start Index",
+    "type": "integer",
+    "description": "Start index of replacement suggestion from input text."
+    },
+    "chars_to_replace": {
+    "title": "Chars To Replace",
+    "type": "integer",
+    "description": "Number of characters from original string to replace."
+    },
+    "original_word": {
+    "title": "Original Word",
+    "type": "string",
+    "description": "The original input word."
+    },
+    "is_in_dictionary": {
+    "title": "Is In Dictionary",
+    "type": "boolean",
+    "description": "Is the word in our vocabulary."
+    },
+    "suggestions": {
+    "title": "Suggestions",
+    "type": "array",
+    "items": {
+    "$ref": "#/components/schemas/SingleTokenSuggestions"
+    },
+    "description": "Ordered list of suggestions."
+    }
+    }
+    },
+    "SingleTokenSuggestions": {
+    "title": "SingleTokenSuggestions",
+    "required": [
+    "correction",
+    "score"
+    ],
+    "type": "object",
+    "properties": {
+    "correction": {
+    "title": "Correction",
+    "type": "string",
+    "description": "Suggestion for correction."
+    },
+    "score": {
+    "title": "Score",
+    "type": "number",
+    "description": "Certainty of model about suggestion."
+    }
+    }
+    },
+    "ValidationError": {
+    "title": "ValidationError",
+    "required": [
+    "loc",
+    "msg",
+    "type"
+    ],
+    "type": "object",
+    "properties": {
+    "loc": {
+    "title": "Location",
+    "type": "array",
+    "items": {
+    "type": "string"
+    }
+    },
+    "msg": {
+    "title": "Message",
+    "type": "string"
+    },
+    "type": {
+    "title": "Error Type",
+    "type": "string"
+    }
+    }
+    }
+    }
+    }
+    }
