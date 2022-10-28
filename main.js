@@ -15,7 +15,7 @@ const correctOne = async (text) => {
       "X-RapidAPI-Key": "4fd22ea8fdmsh468888a68e87134p1e7f0bjsnc376e8fe3ff3",
       "X-RapidAPI-Host": "typewise-ai.p.rapidapi.com",
     },
-    body: `{"text": "${text}","keyboard":"QWERTY","languages":["es"]}`,
+    body: `{"text": "${text}","keyboard":"QWERTY","languages":["en"]}`,
   };
 
   const corrected = await fetch(url, options)
