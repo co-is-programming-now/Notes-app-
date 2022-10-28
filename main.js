@@ -5,10 +5,6 @@ const $addNoteButton = document.getElementById("add-note");
 
 //API to consume grammar corrector typewise
 const url = "https://typewise-ai.p.rapidapi.com/correction/whole_sentence";
-const textArea = document
-  .querySelector(".note")
-  .addEventListener("change", correctionService);
-$notesSection.addEventListener("change", correctionService);
 
 //request to send the text and get the answer
 const correctOne = async (text) => {
@@ -19,14 +15,13 @@ const correctOne = async (text) => {
       "X-RapidAPI-Key": "4fd22ea8fdmsh468888a68e87134p1e7f0bjsnc376e8fe3ff3",
       "X-RapidAPI-Host": "typewise-ai.p.rapidapi.com",
     },
-    body: `{"text": "${text}","keyboard":"QWERTY","languages":["en"]}`,
+    body: `{"text": "${text}","keyboard":"QWERTY","languages":["es"]}`,
   };
 
   const corrected = await fetch(url, options)
     .then((response) => response.json())
     .then((response) => {
       const { corrected_text } = response;
-      console.log(corrected_text);
       return corrected_text;
     })
     .catch((err) => console.error(err));
@@ -34,22 +29,26 @@ const correctOne = async (text) => {
   return corrected;
 };
 
-//sending the text to be corrected
-async function correctionService({ target }) {
-  const { value } = target;
-  try {
-    await correctOne(value).then((response) => {
-      target.value = response;
-    });
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 //get notes from local storage
 const getNotes = () => {
-  return JSON.parse(localStorage.getItem("notes")) || [];
+   return JSON.parse(localStorage.getItem("notes")) || [];
 };
+
+//instructions for new users
+if (getNotes().length === 0) {
+  setTimeout(() => {
+    Swal.fire({
+      title: "Welcome to a brief tutorial!",
+      text: "Click on the button + to add a new note, click on the note to type, double click to delete. You can also write without worrying about your grammar.",
+      confirmButtonText: "I understand!",
+      confirmButtonColor: "rgba(0, 0, 0, 0.633)",
+      background: "rgb(230, 230, 230)",
+      position: "center",
+      color: "rgba(0, 0, 0, 0.633)",
+      width: 400,
+    });
+  }, 2000);
+}
 
 getNotes().forEach((note) => {
   const getBackNote = createNote(note.id, note.valueNote);
@@ -58,8 +57,11 @@ getNotes().forEach((note) => {
 // listen event click on add note button
 $addNoteButton.addEventListener("click", () => {
   addNote();
-  console.log("note saved");
 });
+
+const updateValue = (text, target) => {
+  target.innerHTML = text;
+};
 
 //save notes to local storage
 const saveNotes = (notes) => {
@@ -69,14 +71,15 @@ const saveNotes = (notes) => {
 //create note function
 function createNote(id, valueNote) {
   const $newNote = document.createElement("textarea");
+  $newNote.setAttribute("id", id);
   $newNote.classList.add("note");
   $newNote.value = valueNote;
   $newNote.placeholder = "click on me to write";
   $notesSection.insertBefore($newNote, $addNoteButton);
 
   // listen event change on note and call update note function
-  $newNote.addEventListener("change", () => {
-    updateNote(id, $newNote.value);
+  $newNote.addEventListener("change", async (e) => {
+    await updateNote(id, $newNote.value);
   });
 
   // listen event dblclick on note
@@ -125,15 +128,16 @@ const addNote = () => {
 };
 
 //update note function
-const updateNote = (id, newValueNote) => {
+const updateNote = async (id, newValueNote) => {
+  const notaParaModificar = document.getElementById(`${id}`);
   const editedNote = getNotes();
   //search for the note that has changed
   const targetNote = editedNote.filter((note) => note.id === id)[0];
+  const nuevoValor = await correctOne(newValueNote);
+  targetNote.valueNote = await nuevoValor;
+  notaParaModificar.value = nuevoValor;
 
-  targetNote.valueNote = newValueNote;
-  //save updated notes on local storage
   saveNotes(editedNote);
-  console.log("the note has changed");
 
   //customize the save note alert
   Swal.fire({
@@ -154,7 +158,6 @@ const deleteNote = (id, element) => {
 
   //remove note deleted from local storage
   localStorage.removeItem(element);
-  console.log("The note has deleted");
 
   //save updated notes on local storage
   saveNotes(notes);
